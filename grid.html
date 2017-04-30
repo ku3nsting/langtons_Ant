@@ -1,0 +1,187 @@
+<html>
+    <head>
+
+    </head>
+	<head>
+	<link rel="stylesheet" type="text/css" href="mapstyle.css">
+    <body>
+	<div id="headerText">
+		<h2> Langton's Ant Mapmaker </h2>
+		</div>
+		
+        <canvas id="canvas" width="520" height="520"></canvas>
+
+    <script type="text/javascript" language="javascript">
+	
+	function Ant(direction, moved, row, col) {
+    this.direction = 'N';
+    this.moved = false;
+	this.row = 0;
+	this.col = 0;	
+   }
+   
+   	function Grid() {
+	this.valueReplaced = 0;
+	this.dataGrid = [
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+   }
+   
+   //define colors:
+   var yellow = "#ffff00";
+   var white = "#ffffff";
+   var black = "#000000"
+   
+	
+	//define the grid
+    var bw = 500;
+    var bh = 500;
+    var p = 10;
+    var cw = bw + (p*2) + 1;
+    var ch = bh + (p*2) + 1;
+
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+	
+	//draw the grid
+    function drawBoard(){
+    for (var x = 0; x <= bw; x += 20) {
+        context.moveTo(0.5 + x + p, p);
+        context.lineTo(0.5 + x + p, bh + p);
+    }
+
+    for (var x = 0; x <= bh; x += 20) {
+        context.moveTo(p, 0.5 + x + p);
+        context.lineTo(bw + p, 0.5 + x + p);
+    }
+
+    context.strokeStyle = "black";
+    context.stroke();
+    }
+	
+   makeAnt = new Ant('N', false, 0, 0);
+   makeGrid = new Grid();
+   
+   function colorChange(row, col, val){
+			var actualRow = row + 12;
+			var actualCol = col + 12;
+			
+            if (val == 0){
+				grid.dataGrid[actualRow][actualCol] = 1;
+                var color = black;
+				}
+			else if (val == 1){
+				grid.dataGrid[actualRow][actualCol] = 0;
+                var color = white;
+			}
+			return color;
+	}
+
+   function getValReplaced(grid, row, col){
+			var actualRow = row + 12;
+			var actualCol = col + 12;
+            var val = grid.dataGrid[actualRow][actualCol];
+            return val
+			}
+  
+   function moveAnt(Ant, Grid){    
+		//turn the ant
+            Ant.moved = false;
+            var oldRow = Ant.row;
+            var oldCol = Ant.col;
+                
+            if(Ant.direction == 'N' && Ant.moved == false){
+                        if (Grid.valueReplaced == 0 || Grid.valueReplaced == 1){
+                                Ant.direction = 'E';
+                                Ant.col = Ant.col + 1;
+								}
+                        else{
+                                Ant.direction = 'W';
+                                Ant.col = Ant.col - 1;
+								Ant.moved = true;
+								}
+                        }
+                if(Ant.direction == 'E' && Ant.moved == false){
+                        if (Grid.valueReplaced == 0 || Grid.valueReplaced == 1){
+                                Ant.direction = 'S';
+                                Ant.row = Ant.row + 1;
+								}
+                        else{
+                                Ant.direction = 'N';
+                                Ant.row = Ant.row - 1;
+								Ant.moved = true;
+								}
+								}
+                        
+                if(Ant.direction == 'S' && Ant.moved == false){
+                        if (Grid.valueReplaced == 0 || Grid.valueReplaced == 1){
+                                Ant.direction = 'W';
+                                Ant.col = Ant.col - 1;
+								}
+                        else{
+                                Ant.direction = 'E';
+                                Ant.col = Ant.col + 1;
+								Ant.moved = true;
+								}
+								}
+                        
+                if(Ant.direction == 'W' && Ant.moved == false){
+                        if (Grid.valueReplaced == 0 || Grid.valueReplaced == 1){
+                                Ant.direction = 'N';
+                                Ant.row = Ant.row - 1;
+								}
+                        else{
+                                Ant.direction = 'S';
+                                Ant.row = Ant.row + 1;
+								Ant.moved = true;
+								}
+						}
+				
+                var oldColor = colorChange(Grid.valueReplaced);
+				drawAnt(oldRow, oldCol, oldColor);
+                Grid.valueReplaced = getValReplaced(Grid, oldRow, oldCol); 
+	}
+	
+	function drawAnt(hOffset, vOffset, color){
+		
+		var ant = canvas.getContext('2d');
+		horizOffset = (hOffset * 20);
+		vertOffset = (vOffset * 20);
+		ant.fillStyle=color;
+		antWidth = 19;
+		antHeight = 19;
+		antCenter = 240;
+		ant.fillRect(antCenter + p + 1 + horizOffset, antCenter + p + 1 +vertOffset, antWidth, antHeight);
+    }
+
+    drawBoard();
+	drawAnt(0, 0, yellow);
+	moveAnt(makeAnt, makeGrid);
+	
+    </script>
+    </body>
+    </html>
